@@ -1,0 +1,18 @@
+---
+name: Authen-Simple-LDAP
+version: 0.1
+author:
+  - Christian Hansen C<ch@ngmedia.com>
+abstract: Simple LDAP authentication
+license: perl
+requires:
+  Authen::Simple: 0
+  Net::LDAP: 0
+provides:
+  Authen::Simple::ActiveDirectory:
+    file: lib/Authen/Simple/ActiveDirectory.pm
+    version: 0.1
+  Authen::Simple::LDAP:
+    file: lib/Authen/Simple/LDAP.pm
+    version: 0.1
+generated_by: Module::Build version 0.2611
