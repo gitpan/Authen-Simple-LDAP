@@ -4,10 +4,11 @@ use strict;
 use warnings;
 use base 'Authen::Simple::Adapter';
 
-use Net::LDAP;
-use Params::Validate qw[];
+use Net::LDAP           qw[]; 
+use Net::LDAP::Constant qw[LDAP_INVALID_CREDENTIALS];
+use Params::Validate    qw[];
 
-our $VERSION = 0.1;
+our $VERSION = 0.2;
 
 __PACKAGE__->options({
     host => {
@@ -135,8 +136,9 @@ sub check {
     if ( $message->is_error ) {
 
         my $error = $message->error;
+        my $level = $message->code == LDAP_INVALID_CREDENTIALS ? 'debug' : 'error';
 
-        $self->log->debug( qq/Failed to authenticate user '$username' with dn '$dn'. Reason: '$error'/ )
+        $self->log->$level( qq/Failed to authenticate user '$username' with dn '$dn'. Reason: '$error'/ )
           if $self->log;
 
         return 0;
@@ -145,7 +147,7 @@ sub check {
     $self->log->debug( qq/Successfully authenticated user '$username' with dn '$dn'./ )
       if $self->log;
 
-    return 1;
+    return $dn;
 }
 
 1;
@@ -273,7 +275,15 @@ Returns true on success and false on failure.
 
 =head1 EXAMPLE USAGE
 
-=head2 Active Directory
+=head2 Apple Open Directory
+
+    my $ldap = Authen::Simple::LDAP->new(
+        host    => 'od.company.com',
+        basedn  => 'cn=users,dc=company,dc=com',
+        filter  => '(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(uid=%s))'
+    );
+
+=head2 Microsoft Active Directory
 
     my $ldap = Authen::Simple::LDAP->new(
         host    => 'ad.company.com',
@@ -286,14 +296,6 @@ Returns true on success and false on failure.
 Active Directory by default does not allow anonymous binds. It's recommended
 that a proxy user is used that has sufficient rights to search the desired
 tree and attributes.
-
-=head2 Open Directory
-
-    my $ldap = Authen::Simple::LDAP->new(
-        host    => 'od.company.com',
-        basedn  => 'cn=users,dc=company,dc=com',
-        filter  => '(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(uid=%s))'
-    );
 
 =head1 SEE ALSO
 

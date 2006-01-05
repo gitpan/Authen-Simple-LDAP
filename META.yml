@@ -1,6 +1,6 @@
 ---
 name: Authen-Simple-LDAP
-version: 0.1
+version: 0.2
 author:
   - Christian Hansen C<ch@ngmedia.com>
 abstract: Simple LDAP authentication
@@ -11,8 +11,8 @@ requires:
 provides:
   Authen::Simple::ActiveDirectory:
     file: lib/Authen/Simple/ActiveDirectory.pm
-    version: 0.1
+    version: 0.2
   Authen::Simple::LDAP:
     file: lib/Authen/Simple/LDAP.pm
-    version: 0.1
+    version: 0.2
 generated_by: Module::Build version 0.2611

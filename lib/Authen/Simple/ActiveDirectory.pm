@@ -4,10 +4,11 @@ use strict;
 use warnings;
 use base 'Authen::Simple::Adapter';
 
-use Net::LDAP;
-use Params::Validate qw[];
+use Net::LDAP           qw[]; 
+use Net::LDAP::Constant qw[LDAP_INVALID_CREDENTIALS];
+use Params::Validate    qw[];
 
-our $VERSION = 0.1;
+our $VERSION = 0.2;
 
 __PACKAGE__->options({
     host => {
@@ -55,8 +56,9 @@ sub check {
     if ( $message->is_error ) {
 
         my $error = $message->error;
+        my $level = $message->code == LDAP_INVALID_CREDENTIALS ? 'debug' : 'error';
 
-        $self->log->debug( qq/Failed to authenticate user '$user'. Reason: '$error'/ )
+        $self->log->$level( qq/Failed to authenticate user '$user'. Reason: '$error'/ )
           if $self->log;
 
         return 0;

@@ -94,7 +94,14 @@ METHODS
         Returns true on success and false on failure.
 
 EXAMPLE USAGE
-  Active Directory
+  Apple Open Directory
+        my $ldap = Authen::Simple::LDAP->new(
+            host    => 'od.company.com',
+            basedn  => 'cn=users,dc=company,dc=com',
+            filter  => '(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(uid=%s))'
+        );
+
+  Microsoft Active Directory
         my $ldap = Authen::Simple::LDAP->new(
             host    => 'ad.company.com',
             binddn  => 'proxyuser@company.com',
@@ -106,13 +113,6 @@ EXAMPLE USAGE
     Active Directory by default does not allow anonymous binds. It's
     recommended that a proxy user is used that has sufficient rights to
     search the desired tree and attributes.
-
-  Open Directory
-        my $ldap = Authen::Simple::LDAP->new(
-            host    => 'od.company.com',
-            basedn  => 'cn=users,dc=company,dc=com',
-            filter  => '(&(objectClass=inetOrgPerson)(objectClass=posixAccount)(uid=%s))'
-        );
 
 SEE ALSO
     Authen::Simple::ActiveDirectory.
