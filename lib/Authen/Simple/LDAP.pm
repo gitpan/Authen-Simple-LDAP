@@ -8,7 +8,7 @@ use Net::LDAP           qw[];
 use Net::LDAP::Constant qw[LDAP_INVALID_CREDENTIALS];
 use Params::Validate    qw[];
 
-our $VERSION = 0.2;
+our $VERSION = 0.3;
 
 __PACKAGE__->options({
     host => {
@@ -61,9 +61,9 @@ sub check {
     my ( $self, $username, $password ) = @_;
 
     my $connection = Net::LDAP->new( $self->host,
-        Port    => $self->port,
-        Timeout => $self->timeout,
-        Version => $self->version
+        port    => $self->port,
+        timeout => $self->timeout,
+        version => $self->version
     );
 
     unless ( defined $connection ) {
@@ -307,7 +307,7 @@ L<Net::LDAP>.
 
 =head1 AUTHOR
 
-Christian Hansen C<ch@ngmedia.com>
+Christian Hansen C<chansen@cpan.org>
 
 =head1 COPYRIGHT
 

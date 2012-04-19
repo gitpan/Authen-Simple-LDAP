@@ -32,11 +32,14 @@ DESCRIPTION
     Authenticate against a LDAP service.
 
 METHODS
-    * new
+    *   new
+
         This method takes a hash of parameters. The following options are
         valid:
 
-        * host  Connection host, can be a hostname, IP number or a URI.
+        *       host
+
+                Connection host, can be a hostname, IP number or a URI.
                 Defaults to "localhost".
 
                     host => ldap.company.com
@@ -44,53 +47,66 @@ METHODS
                     host => ldap://ldap.company.com:389
                     host => ldaps://ldap.company.com
 
-        * port  Connection port, default to 389. May be overriden by host if
+        *       port
+
+                Connection port, default to 389. May be overriden by host if
                 host is a URI.
 
                     port => 389
 
-        * timeout
+        *       timeout
+
                 Connection timeout, defaults to 60.
 
                     timeout => 60
 
-        * version
+        *       version
+
                 The LDAP version to use, defaults to 3.
 
                     version => 3
 
-        * binddn
+        *       binddn
+
                 The distinguished name to bind to the server with, defaults
                 to bind anonymously.
 
                     binddn => 'uid=proxy,cn=users,dc=company,dc=com'
 
-        * bindpw
+        *       bindpw
+
                 The credentials to bind with.
 
                     bindpw => 'secret'
 
-        * basedn
+        *       basedn
+
                 The distinguished name of the search base.
 
                     basedn => 'cn=users,dc=company,dc=com'
 
-        * filter
+        *       filter
+
                 LDAP filter to use in search, defaults to "(uid=%s)".
 
                     filter => '(uid=%s)'
 
-        * scope The search scope, can be "base", "one" or "sub", defaults to
+        *       scope
+
+                The search scope, can be "base", "one" or "sub", defaults to
                 "sub".
 
                     filter => 'sub'
 
-        * log   Any object that supports "debug", "info", "error" and
+        *       log
+
+                Any object that supports "debug", "info", "error" and
                 "warn".
 
                     log => Log::Log4perl->get_logger('Authen::Simple::LDAP')
 
-    * authenticate( $username, $password )
+    *   authenticate( $username, $password )
+
         Returns true on success and false on failure.
 
 EXAMPLE USAGE
@@ -122,7 +138,7 @@ SEE ALSO
     Net::LDAP.
 
 AUTHOR
-    Christian Hansen "ch@ngmedia.com"
+    Christian Hansen "chansen@cpan.org"
 
 COPYRIGHT
     This program is free software, you can redistribute it and/or modify it
